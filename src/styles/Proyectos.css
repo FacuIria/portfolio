@@ -1,0 +1,172 @@
+.proyectos {
+  padding: 4rem 2rem;
+  min-height: calc(100vh - 80px);
+}
+
+.proyectos .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.proyectos h2 {
+  margin-bottom: 1rem;
+}
+
+.intro-text {
+  text-align: center;
+  color: #cbd5e1;
+  margin-bottom: 3rem;
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+.proyectos-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.proyecto-card {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(102, 126, 234, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  align-items: stretch;
+  backdrop-filter: blur(10px);
+}
+
+.proyecto-card:hover {
+  border-color: rgba(102, 126, 234, 0.6);
+  background: rgba(30, 41, 59, 0.8);
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.15);
+}
+
+.proyecto-imagen {
+  height: 100%;
+  min-height: 280px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.proyecto-imagen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.proyecto-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.proyecto-tipo {
+  display: inline-block;
+  width: fit-content;
+  padding: 0.4rem 0.8rem;
+  background: rgba(102, 126, 234, 0.2);
+  color: #667eea;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+}
+
+.proyecto-card h3 {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+}
+
+.proyecto-card p {
+  color: #cbd5e1;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.proyecto-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.tech-badge {
+  display: inline-block;
+  background: rgba(102, 126, 234, 0.15);
+  color: #667eea;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.tech-badge:hover {
+  background: rgba(102, 126, 234, 0.25);
+  border-color: rgba(102, 126, 234, 0.6);
+}
+
+.btn-repositorio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.btn-repositorio:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+
+@media (max-width: 768px) {
+  .proyectos {
+    padding: 2rem 1.5rem;
+  }
+
+  .proyecto-card {
+    grid-template-columns: 1fr;
+  }
+
+  .proyecto-imagen {
+    min-height: 200px;
+    font-size: 3rem;
+  }
+
+  .proyecto-content {
+    padding: 1.5rem;
+  }
+
+  .proyecto-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .proyecto-card p {
+    font-size: 0.95rem;
+  }
+}
