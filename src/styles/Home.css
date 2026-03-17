@@ -540,7 +540,6 @@ body[data-theme='light'] .hero-glow {
 body[data-theme='light'] .highlight-pill,
 body[data-theme='light'] .tech-badge,
 body[data-theme='light'] .skill-badge,
-body[data-theme='light'] .btn-secondary,
 body[data-theme='light'] .btn-repositorio,
 body[data-theme='light'] .metric-card,
 body[data-theme='light'] .proyecto-card,
@@ -550,6 +549,20 @@ body[data-theme='light'] .hero-photo-frame {
   background: rgba(255, 255, 255, 0.82);
   border-color: rgba(148, 163, 184, 0.35);
   box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+body[data-theme='light'] .btn-secondary {
+  color: #1e3a8a;
+  background: rgba(219, 234, 254, 0.85);
+  border-color: rgba(59, 130, 246, 0.45);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.15);
+}
+
+body[data-theme='light'] .btn-secondary:hover {
+  color: #1e40af;
+  background: rgba(191, 219, 254, 0.95);
+  border-color: rgba(37, 99, 235, 0.72);
+  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.2);
 }
 
 body[data-theme='light'] .btn-secondary:hover,

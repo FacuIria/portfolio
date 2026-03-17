@@ -105,18 +105,6 @@ export default function Home() {
               usuario y trabajo colaborativo para resolver problemas reales.
             </p>
 
-            <div className="hero-highlights">
-              <div className="highlight-pill">
-                <span>Java + Spring Boot</span>
-              </div>
-              <div className="highlight-pill">
-                <span>React + Vite</span>
-              </div>
-              <div className="highlight-pill">
-                <span>MySQL + APIs REST</span>
-              </div>
-            </div>
-
             <div className="hero-cta">
               <a href="#proyectos" className="btn btn-primary">
                 Ver Mi Trabajo
