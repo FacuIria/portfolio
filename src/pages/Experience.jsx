@@ -4,7 +4,7 @@ export default function Experience() {
   const experiences = [
     {
       id: 1,
-      puesto: 'Desarrollador Full Stack Junior',
+      puesto: 'Desarrollador Backend/Frontend Junior',
       empresa: 'Tu Empresa/Proyecto',
       periodo: 'Enero 2024 - Presente',
       descripcion: [
@@ -21,7 +21,7 @@ export default function Experience() {
       periodo: '2021 - Presente',
       descripcion: [
         'Tercer año de la carrera',
-        'Especialización en desarrollo full stack',
+        'Especialización en desarrollo de software',
         'Desarrollo de proyectos académicos',
         'Aprendizaje continuo de nuevas tecnologías'
       ]

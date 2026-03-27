@@ -22,7 +22,11 @@ export default function Navbar({ theme, toggleTheme }) {
           <a href="#home" className="nav-link" onClick={handleClick}>Home</a>
           <a href="#projects" className="nav-link" onClick={handleClick}>Projects</a>
           <a href="#skills" className="nav-link" onClick={handleClick}>Skills</a>
+          <a href="#experience" className="nav-link" onClick={handleClick}>Experience</a>
+          <a href="#engineering" className="nav-link" onClick={handleClick}>Quality</a>
+          <a href="#focus" className="nav-link" onClick={handleClick}>Focus</a>
           <a href="#about" className="nav-link" onClick={handleClick}>About</a>
+          <a href="#contact" className="nav-link" onClick={handleClick}>Contact</a>
 
           <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label="Switch theme">
             <i className={theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'}></i>

@@ -7,7 +7,7 @@ export default function Proyectos() {
       titulo: 'E-commerce Platform',
       descripcion: 'Plataforma de compras online con carrito, pago y admin panel',
       tecnologias: ['React', 'Node.js', 'MongoDB', 'Stripe'],
-      tipo: 'FULL STACK',
+      tipo: 'WEB APP',
       imagen: 'EC',
       repositorio: '#'
     },
@@ -34,7 +34,7 @@ export default function Proyectos() {
       titulo: 'Social Network',
       descripcion: 'Red social con sistema de posts, comentarios y likes',
       tecnologias: ['React', 'Node.js', 'PostgreSQL'],
-      tipo: 'FULL STACK',
+      tipo: 'WEB APP',
       imagen: 'SN',
       repositorio: '#'
     }

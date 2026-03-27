@@ -21,7 +21,7 @@ export default function AboutMe() {
             </p>
             
             <p>
-              Soy un desarrollador full stack apasionado por crear soluciones web innovadoras y funcionales.
+              Soy un desarrollador de software apasionado por crear soluciones web innovadoras y funcionales.
               Me encanta resolver problemas complejos a través del código y tengo un compromiso continuo 
               con el aprendizaje de nuevas tecnologías.
             </p>

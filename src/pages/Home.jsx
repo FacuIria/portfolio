@@ -1,21 +1,24 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import '../styles/Home.css'
 
 export default function Home() {
   const [typedName, setTypedName] = useState('')
   const [typedRole, setTypedRole] = useState('')
+  const [activeProjectFilter, setActiveProjectFilter] = useState('All')
 
   const heroPhoto = '/images/facundo-playa.jpg'
   const aboutPhoto = '/images/facundo-traje.jpg'
   const fullName = 'Facundo Iriarte'
 
   const dynamicRoles = [
+    'Backend Developer',
     'Full-Stack Developer',
-    'Backend Engineer',
     'Problem Solver',
     'Product-Oriented Developer',
   ]
+
+  const projectFilters = ['All', 'Backend', 'Frontend']
 
   useEffect(() => {
     let charIndex = 0
@@ -74,90 +77,146 @@ export default function Home() {
     return () => window.clearTimeout(timerId)
   }, [])
 
-  const proyectos = [
+  const projects = [
     {
       id: 1,
-      titulo: 'Felsani Motors',
-      descripcion:
-        'Vehicle marketplace built as a full-stack web app using Java, Spring Boot, and MySQL. Includes vehicle filters, detail views, cart management, and an admin panel.',
-      tecnologias: ['Java', 'Spring Boot', 'MySQL', 'JPA/Hibernate'],
-      impacto: [
-        'Structured backend modules for cleaner business logic.',
-        'Implemented relational persistence with optimized entity mapping.',
-        'Designed admin flows focused on maintainability and scale.',
+      title: 'Felsani Motors',
+      category: 'Backend',
+      type: 'BACKEND',
+      icon: 'fa-car-side',
+      code: 'FM',
+      description:
+        'Backend-oriented vehicle marketplace solution built with Java, Spring Boot, and MySQL, including customer and admin flows.',
+      problem:
+        'Car listings and purchase flows were fragmented, making discovery and management difficult for users and admins.',
+      solution:
+        'Designed modular services with clear domain boundaries, role-based actions, and reliable data access layers.',
+      impact: [
+        'Implemented reusable backend services for cleaner business rules.',
+        'Improved navigation efficiency with structured filtering and detail pages.',
+        'Reduced future feature complexity through layered architecture decisions.',
       ],
-      tipo: 'FULL STACK',
-      icono: 'fa-car-side',
-      codigo: 'FM',
-      repositorio: 'https://github.com/FacuIria',
+      architecture: ['Spring Boot API', 'Service Layer', 'MySQL'],
+      technologies: ['Java', 'Spring Boot', 'MySQL', 'JPA/Hibernate'],
+      repository: 'https://github.com/FacuIria',
+      demo: 'mailto:facuiria03@gmail.com?subject=Live%20Demo%20Request%20-%20Felsani%20Motors',
     },
     {
       id: 2,
-      titulo: 'DryMat',
-      descripcion:
-        'E-commerce web app developed with React and Vite. Modern responsive interface with product management and a shopping cart optimized across devices.',
-      tecnologias: ['React', 'Vite', 'JavaScript', 'CSS3'],
-      impacto: [
-        'Built reusable UI components for faster feature delivery.',
-        'Improved shopping flow with a clear cart and product UX.',
-        'Focused on responsive behavior across desktop and mobile.',
+      title: 'DryMat',
+      category: 'Frontend',
+      type: 'FRONTEND',
+      icon: 'fa-store',
+      code: 'DM',
+      description:
+        'E-commerce frontend built with React and Vite focused on responsive UX and a clear conversion-oriented shopping flow.',
+      problem:
+        'The shopping experience needed a fast, intuitive UI that could adapt well across desktop and mobile devices.',
+      solution:
+        'Built a reusable component system with responsive layouts, state-driven cart logic, and cleaner UI hierarchy.',
+      impact: [
+        'Improved consistency with reusable UI patterns.',
+        'Enhanced mobile readability and interaction across breakpoints.',
+        'Streamlined product-to-cart flow for a more direct user journey.',
       ],
-      tipo: 'FRONTEND',
-      icono: 'fa-store',
-      codigo: 'DM',
-      repositorio: 'https://github.com/FacuIria',
+      architecture: ['React Components', 'Client State', 'API Integration'],
+      technologies: ['React', 'Vite', 'JavaScript', 'CSS3'],
+      repository: 'https://github.com/FacuIria',
+      demo: 'mailto:facuiria03@gmail.com?subject=Live%20Demo%20Request%20-%20DryMat',
     },
   ]
 
   const skills = [
     {
-      categoria: 'Programming Languages',
+      category: 'Programming Languages',
       items: [
-        { nombre: 'Java', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
-        {
-          nombre: 'JavaScript',
-          logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
-        },
-        { nombre: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-        { nombre: 'HTML', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
-        { nombre: 'SQL', logo: 'https://cdn.simpleicons.org/sqlite/003B57' },
+        { name: 'Java', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+        { name: 'JavaScript', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+        { name: 'Python', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+        { name: 'HTML', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+        { name: 'SQL', logo: 'https://cdn.simpleicons.org/sqlite/003B57' },
       ],
     },
     {
-      categoria: 'Frameworks & Libraries',
+      category: 'Frameworks & Libraries',
       items: [
-        { nombre: 'Spring Boot', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg' },
-        { nombre: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-        { nombre: 'Vite', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg' },
-        { nombre: 'Tailwind', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
-        { nombre: 'Node.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+        { name: 'Spring Boot', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg' },
+        { name: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+        { name: 'Vite', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg' },
+        { name: 'Tailwind', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg' },
+        { name: 'Node.js', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
       ],
     },
     {
-      categoria: 'Databases',
+      category: 'Databases',
       items: [
-        { nombre: 'MySQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+        { name: 'MySQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
         {
-          nombre: 'Microsoft SQL Server',
+          name: 'Microsoft SQL Server',
           logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg',
         },
-        {
-          nombre: 'JPA/Hibernate',
-          logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hibernate/hibernate-plain.svg',
-        },
+        { name: 'JPA/Hibernate', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hibernate/hibernate-plain.svg' },
       ],
     },
     {
-      categoria: 'Tools & Version Control',
+      category: 'Tools & Version Control',
       items: [
-        { nombre: 'Git', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
-        { nombre: 'GitHub', logo: 'https://cdn.simpleicons.org/github/FFFFFF' },
-        { nombre: 'REST APIs', logo: 'https://cdn.simpleicons.org/openapiinitiative/6BA539' },
-        { nombre: 'Postman', logo: 'https://cdn.simpleicons.org/postman/FF6C37' },
-        { nombre: 'Insomnia', logo: 'https://cdn.simpleicons.org/insomnia/5849BE' },
-        { nombre: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+        { name: 'Git', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+        { name: 'GitHub', logo: 'https://cdn.simpleicons.org/github/FFFFFF' },
+        { name: 'REST APIs', logo: 'https://cdn.simpleicons.org/openapiinitiative/6BA539' },
+        { name: 'Postman', logo: 'https://cdn.simpleicons.org/postman/FF6C37' },
+        { name: 'Insomnia', logo: 'https://cdn.simpleicons.org/insomnia/5849BE' },
+        { name: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
       ],
     },
+  ]
+
+  const experienceItems = [
+    {
+      year: '2022 - Present',
+      title: 'Computer Engineering - UADE',
+      details:
+        'Strong foundation in software engineering, algorithms, database systems, and collaborative development.',
+    },
+    {
+      year: '2024 - Present',
+      title: 'Web Project Development',
+      details:
+        'Building backend services and frontend modules with a focus on maintainability and scalability.',
+    },
+    {
+      year: 'Current Focus',
+      title: 'Production-Ready Engineering Practices',
+      details:
+        'Improving architecture, API design, code quality, and product execution for real-world team environments.',
+    },
+  ]
+
+  const engineeringPillars = [
+    {
+      title: 'Architecture Mindset',
+      description: 'Layered design, modular components, and clear separation of concerns.',
+    },
+    {
+      title: 'Code Quality',
+      description: 'Readable naming, reusable abstractions, and maintainable code organization.',
+    },
+    {
+      title: 'API Thinking',
+      description: 'RESTful contracts, consistent responses, and robust error handling strategy.',
+    },
+    {
+      title: 'Delivery Focus',
+      description: 'Execution with ownership, pragmatic decisions, and product-oriented iteration.',
+    },
+  ]
+
+  const currentFocus = [
+    'System design fundamentals',
+    'Backend performance optimization',
+    'Testable frontend architecture',
+    'Dockerized local environments',
+    'Scalable relational data modeling',
   ]
 
   const maxCategoryLength = Math.max(...skills.map((category) => category.items.length))
@@ -177,6 +236,14 @@ export default function Home() {
     [...mixedSkills.slice(5), ...mixedSkills.slice(0, 5)],
     [...mixedSkills.slice(9), ...mixedSkills.slice(0, 9)],
   ]
+
+  const filteredProjects = useMemo(() => {
+    if (activeProjectFilter === 'All') {
+      return projects
+    }
+
+    return projects.filter((project) => project.category === activeProjectFilter)
+  }, [activeProjectFilter, projects])
 
   const revealUp = {
     initial: { opacity: 0, y: 24 },
@@ -210,6 +277,10 @@ export default function Home() {
               Computer Engineering student at UADE focused on building solid, scalable, and well-designed
               products. I enjoy combining business logic, strong user experience, and collaborative work
               to solve real-world problems.
+            </p>
+
+            <p className="hero-positioning">
+              I build reliable software products that connect clean engineering with real user value.
             </p>
 
             <div className="hero-cta">
@@ -254,13 +325,13 @@ export default function Home() {
 
             <div className="hero-availability">
               <span className="availability-dot" aria-hidden="true"></span>
-              <p>Open to internships and junior full-stack opportunities.</p>
+              <p>Open to internships and junior backend or frontend opportunities.</p>
             </div>
           </motion.div>
 
           <motion.div className="hero-image" initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
             <div className="hero-photo-frame">
-              <img src={heroPhoto} alt="Facundo Iriarte con traje" className="hero-photo" />
+              <img src={heroPhoto} alt="Facundo Iriarte with suit" className="hero-photo" />
             </div>
           </motion.div>
         </motion.div>
@@ -273,43 +344,83 @@ export default function Home() {
             A selection of projects I have built
           </motion.p>
 
+          <div className="project-filters" role="tablist" aria-label="Project filters">
+            {projectFilters.map((filter) => (
+              <button
+                key={filter}
+                type="button"
+                className={`project-filter-btn ${activeProjectFilter === filter ? 'active' : ''}`}
+                onClick={() => setActiveProjectFilter(filter)}
+              >
+                {filter}
+              </button>
+            ))}
+          </div>
+
           <div className="proyectos-grid">
-            {proyectos.map((proyecto, index) => (
+            {filteredProjects.map((project, index) => (
               <motion.div
-                key={proyecto.id}
+                key={project.id}
                 className="proyecto-card"
                 initial={{ opacity: 0, y: 26 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ duration: 0.55, delay: index * 0.12 }}
               >
-                <div className="proyecto-tipo">{proyecto.tipo}</div>
-                <div className={`proyecto-imagen proyecto-imagen-${proyecto.id}`}>
-                  <i className={`fas ${proyecto.icono}`} aria-hidden="true"></i>
-                  <span>{proyecto.codigo}</span>
+                <div className="proyecto-tipo">{project.type}</div>
+                <div className={`proyecto-imagen proyecto-imagen-${project.id}`}>
+                  <i className={`fas ${project.icon}`} aria-hidden="true"></i>
+                  <span>{project.code}</span>
                 </div>
 
                 <div className="proyecto-content">
-                  <h3>{proyecto.titulo}</h3>
-                  <p>{proyecto.descripcion}</p>
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+
+                  <div className="case-study-grid">
+                    <article className="case-block">
+                      <h4>Problem</h4>
+                      <p>{project.problem}</p>
+                    </article>
+                    <article className="case-block">
+                      <h4>Solution</h4>
+                      <p>{project.solution}</p>
+                    </article>
+                  </div>
 
                   <div className="proyecto-tech">
-                    {proyecto.tecnologias.map((tech, i) => (
+                    {project.technologies.map((tech, i) => (
                       <span key={i} className="tech-badge">
                         {tech}
                       </span>
                     ))}
                   </div>
 
+                  <div className="architecture-flow" aria-label="Project architecture">
+                    {project.architecture.map((node, i) => (
+                      <div key={node} className="architecture-step">
+                        <span>{node}</span>
+                        {i < project.architecture.length - 1 ? (
+                          <i className="fas fa-chevron-right" aria-hidden="true"></i>
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
+
                   <ul className="project-impact-list">
-                    {proyecto.impacto.map((item, i) => (
+                    {project.impact.map((item, i) => (
                       <li key={i}>{item}</li>
                     ))}
                   </ul>
 
-                  <a href={proyecto.repositorio} target="_blank" rel="noopener noreferrer" className="btn-repositorio">
-                    <i className="fab fa-github"></i> View Project
-                  </a>
+                  <div className="project-links">
+                    <a href={project.demo} className="btn-repositorio btn-demo-link">
+                      <i className="fas fa-display"></i> Live Demo
+                    </a>
+                    <a href={project.repository} target="_blank" rel="noopener noreferrer" className="btn-repositorio">
+                      <i className="fab fa-github"></i> GitHub
+                    </a>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -336,14 +447,82 @@ export default function Home() {
                 <div className="skills-row-track">
                   <div className={`skills-track ${rowIndex % 2 === 0 ? 'left' : 'right'}`}>
                     {[...row, ...row].map((skill, index) => (
-                      <div key={`${skill.nombre}-${rowIndex}-${index}`} className="skill-pill">
-                        <img src={skill.logo} alt={`Logo de ${skill.nombre}`} className="skill-logo" loading="lazy" />
-                        <span>{skill.nombre}</span>
+                      <div key={`${skill.name}-${rowIndex}-${index}`} className="skill-pill">
+                        <img src={skill.logo} alt={`${skill.name} logo`} className="skill-logo" loading="lazy" />
+                        <span>{skill.name}</span>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      <section id="experience" className="experience-section">
+        <div className="container">
+          <motion.h2 {...revealUp}>Experience</motion.h2>
+          <motion.p className="intro-text" {...revealUp}>
+            My learning and engineering progression
+          </motion.p>
+
+          <div className="experience-timeline">
+            {experienceItems.map((item, index) => (
+              <motion.article
+                key={item.title}
+                className="timeline-item"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.25 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+              >
+                <span className="timeline-year">{item.year}</span>
+                <h3>{item.title}</h3>
+                <p>{item.details}</p>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="engineering" className="engineering-section">
+        <div className="container">
+          <motion.h2 {...revealUp}>Engineering Quality</motion.h2>
+          <motion.p className="intro-text" {...revealUp}>
+            How I approach software beyond just writing code
+          </motion.p>
+
+          <div className="engineering-grid">
+            {engineeringPillars.map((pillar, index) => (
+              <motion.article
+                key={pillar.title}
+                className="engineering-card"
+                initial={{ opacity: 0, y: 22 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+              >
+                <h3>{pillar.title}</h3>
+                <p>{pillar.description}</p>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="focus" className="focus-section">
+        <div className="container">
+          <motion.h2 {...revealUp}>Current Focus</motion.h2>
+          <motion.p className="intro-text" {...revealUp}>
+            Areas I am actively sharpening to deliver more value in production teams
+          </motion.p>
+
+          <motion.div className="focus-cloud" {...revealUp}>
+            {currentFocus.map((item) => (
+              <span key={item} className="focus-pill">
+                {item}
+              </span>
             ))}
           </motion.div>
         </div>
@@ -356,7 +535,7 @@ export default function Home() {
           <div className="about-content">
             <motion.div className="about-image" {...revealUp}>
               <div className="about-photo-card">
-                <img src={aboutPhoto} alt="Facundo Iriarte en la playa" className="about-photo" />
+                <img src={aboutPhoto} alt="Facundo Iriarte at the beach" className="about-photo" />
               </div>
             </motion.div>
 
@@ -368,9 +547,9 @@ export default function Home() {
               </p>
 
               <p>
-                My experience includes full-stack development with Java Spring Boot, React, MySQL, and
-                REST APIs. I have worked on projects such as Felsani Motors (vehicle marketplace) and
-                DryMat (e-commerce), applying software best practices with a strong focus on scalability.
+                My experience includes backend development with Java Spring Boot, plus frontend modules
+                with React, MySQL integration, and REST APIs. I have worked on projects such as Felsani
+                Motors and DryMat, applying software best practices with a strong focus on scalability.
               </p>
 
               <h3>My Approach</h3>
