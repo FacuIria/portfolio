@@ -19,14 +19,14 @@ export default function Navbar({ theme, toggleTheme }) {
         </Link>
 
         <div className={`nav-menu ${isOpen ? 'active' : ''}`}>
-          <a href="#home" className="nav-link" onClick={handleClick}>Inicio</a>
-          <a href="#proyectos" className="nav-link" onClick={handleClick}>Proyectos</a>
-          <a href="#skills" className="nav-link" onClick={handleClick}>Habilidades</a>
-          <a href="#about" className="nav-link" onClick={handleClick}>Sobre Mí</a>
+          <a href="#home" className="nav-link" onClick={handleClick}>Home</a>
+          <a href="#projects" className="nav-link" onClick={handleClick}>Projects</a>
+          <a href="#skills" className="nav-link" onClick={handleClick}>Skills</a>
+          <a href="#about" className="nav-link" onClick={handleClick}>About</a>
 
-          <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label="Cambiar tema">
+          <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label="Switch theme">
             <i className={theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'}></i>
-            <span>{theme === 'dark' ? 'Claro' : 'Oscuro'}</span>
+            <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
           </button>
         </div>
 

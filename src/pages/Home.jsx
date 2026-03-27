@@ -1,44 +1,91 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import '../styles/Home.css'
 
 export default function Home() {
-  const [activeRole, setActiveRole] = useState(0)
+  const [typedName, setTypedName] = useState('')
+  const [typedRole, setTypedRole] = useState('')
 
   const heroPhoto = '/images/facundo-playa.jpg'
   const aboutPhoto = '/images/facundo-traje.jpg'
+  const fullName = 'Facundo Iriarte'
 
   const dynamicRoles = [
-    'Desarrollador Full Stack',
-    'Java + Spring Boot',
-    'React + Vite',
-    'Construyendo productos reales',
-  ]
-
-  const stackPreview = [
-    { nombre: 'Java', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
-    { nombre: 'Spring Boot', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg' },
-    { nombre: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-    { nombre: 'MySQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
-    { nombre: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
-    { nombre: 'Git', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+    'Full-Stack Developer',
+    'Backend Engineer',
+    'Problem Solver',
+    'Product-Oriented Developer',
   ]
 
   useEffect(() => {
-    const intervalId = window.setInterval(() => {
-      setActiveRole((prevRole) => (prevRole + 1) % dynamicRoles.length)
-    }, 2100)
+    let charIndex = 0
+    setTypedName('')
 
-    return () => window.clearInterval(intervalId)
-  }, [dynamicRoles.length])
+    const typingId = window.setInterval(() => {
+      charIndex += 1
+      setTypedName(fullName.slice(0, charIndex))
+
+      if (charIndex >= fullName.length) {
+        window.clearInterval(typingId)
+      }
+    }, 82)
+
+    return () => window.clearInterval(typingId)
+  }, [fullName])
+
+  useEffect(() => {
+    let timerId = 0
+    let roleIndex = 0
+    let charIndex = 0
+    let isDeleting = false
+
+    const typeRole = () => {
+      const currentRole = dynamicRoles[roleIndex]
+
+      if (!isDeleting) {
+        charIndex += 1
+        setTypedRole(currentRole.slice(0, charIndex))
+
+        if (charIndex === currentRole.length) {
+          isDeleting = true
+          timerId = window.setTimeout(typeRole, 1200)
+          return
+        }
+
+        timerId = window.setTimeout(typeRole, 85)
+        return
+      }
+
+      charIndex -= 1
+      setTypedRole(currentRole.slice(0, charIndex))
+
+      if (charIndex === 0) {
+        isDeleting = false
+        roleIndex = (roleIndex + 1) % dynamicRoles.length
+        timerId = window.setTimeout(typeRole, 220)
+        return
+      }
+
+      timerId = window.setTimeout(typeRole, 42)
+    }
+
+    timerId = window.setTimeout(typeRole, 500)
+
+    return () => window.clearTimeout(timerId)
+  }, [])
 
   const proyectos = [
     {
       id: 1,
       titulo: 'Felsani Motors',
       descripcion:
-        'Marketplace de vehículos desarrollado como aplicación web full-stack utilizando Java, Spring Boot y MySQL. Permite filtrar vehículos, ver detalles y gestionar un carrito de compras con panel administrativo.',
+        'Vehicle marketplace built as a full-stack web app using Java, Spring Boot, and MySQL. Includes vehicle filters, detail views, cart management, and an admin panel.',
       tecnologias: ['Java', 'Spring Boot', 'MySQL', 'JPA/Hibernate'],
+      impacto: [
+        'Structured backend modules for cleaner business logic.',
+        'Implemented relational persistence with optimized entity mapping.',
+        'Designed admin flows focused on maintainability and scale.',
+      ],
       tipo: 'FULL STACK',
       icono: 'fa-car-side',
       codigo: 'FM',
@@ -48,8 +95,13 @@ export default function Home() {
       id: 2,
       titulo: 'DryMat',
       descripcion:
-        'Aplicación web de comercio electrónico desarrollada con React y Vite. Interfaz moderna y responsiva con gestión de productos y carrito de compras optimizado para todos los dispositivos.',
+        'E-commerce web app developed with React and Vite. Modern responsive interface with product management and a shopping cart optimized across devices.',
       tecnologias: ['React', 'Vite', 'JavaScript', 'CSS3'],
+      impacto: [
+        'Built reusable UI components for faster feature delivery.',
+        'Improved shopping flow with a clear cart and product UX.',
+        'Focused on responsive behavior across desktop and mobile.',
+      ],
       tipo: 'FRONTEND',
       icono: 'fa-store',
       codigo: 'DM',
@@ -59,7 +111,7 @@ export default function Home() {
 
   const skills = [
     {
-      categoria: 'Lenguajes de Programación',
+      categoria: 'Programming Languages',
       items: [
         { nombre: 'Java', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
         {
@@ -72,7 +124,7 @@ export default function Home() {
       ],
     },
     {
-      categoria: 'Frameworks & Librerías',
+      categoria: 'Frameworks & Libraries',
       items: [
         { nombre: 'Spring Boot', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg' },
         { nombre: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
@@ -82,12 +134,12 @@ export default function Home() {
       ],
     },
     {
-      categoria: 'Bases de Datos',
+      categoria: 'Databases',
       items: [
         { nombre: 'MySQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
         {
           nombre: 'Microsoft SQL Server',
-          logo: 'https://cdn.simpleicons.org/microsoftsqlserver/CC2927',
+          logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg',
         },
         {
           nombre: 'JPA/Hibernate',
@@ -96,7 +148,7 @@ export default function Home() {
       ],
     },
     {
-      categoria: 'Herramientas & Control de Versiones',
+      categoria: 'Tools & Version Control',
       items: [
         { nombre: 'Git', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
         { nombre: 'GitHub', logo: 'https://cdn.simpleicons.org/github/FFFFFF' },
@@ -106,6 +158,24 @@ export default function Home() {
         { nombre: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
       ],
     },
+  ]
+
+  const maxCategoryLength = Math.max(...skills.map((category) => category.items.length))
+  const mixedSkills = []
+
+  for (let itemIndex = 0; itemIndex < maxCategoryLength; itemIndex += 1) {
+    for (let categoryIndex = 0; categoryIndex < skills.length; categoryIndex += 1) {
+      const item = skills[categoryIndex].items[itemIndex]
+      if (item) {
+        mixedSkills.push(item)
+      }
+    }
+  }
+
+  const skillRows = [
+    mixedSkills,
+    [...mixedSkills.slice(5), ...mixedSkills.slice(0, 5)],
+    [...mixedSkills.slice(9), ...mixedSkills.slice(0, 9)],
   ]
 
   const revealUp = {
@@ -123,46 +193,31 @@ export default function Home() {
 
         <motion.div className="hero-container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7 }}>
           <motion.div className="hero-text" initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.7 }}>
-            <p className="hero-greeting">Hola, bienvenido a mi portafolio</p>
+            <p className="hero-greeting">Hello, welcome to my portfolio</p>
             <h1 className="hero-title">
-              Soy <span>Facundo Iriarte</span>
+              I&apos;m <span className="hero-name-animated">{typedName}</span>
             </h1>
             <div className="hero-role-switcher" aria-live="polite">
-              <span className="hero-role-label">Me defino como</span>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={dynamicRoles[activeRole]}
-                  className="hero-role-dynamic"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.35, ease: 'easeOut' }}
-                >
-                  {dynamicRoles[activeRole]}
-                </motion.span>
-              </AnimatePresence>
+              <span className="hero-role-label">I define myself as</span>
+              <span className="hero-role-dynamic">
+                {typedRole}
+                <span className="hero-role-cursor" aria-hidden="true">
+                  |
+                </span>
+              </span>
             </div>
             <p className="hero-description">
-              Estudiante de Ingeniería Informática en UADE con foco en construir productos sólidos,
-              escalables y bien diseñados. Me gusta combinar lógica de negocio, buena experiencia de
-              usuario y trabajo colaborativo para resolver problemas reales.
+              Computer Engineering student at UADE focused on building solid, scalable, and well-designed
+              products. I enjoy combining business logic, strong user experience, and collaborative work
+              to solve real-world problems.
             </p>
 
-            <div className="hero-stack-strip" aria-label="Tecnologías principales">
-              {stackPreview.map((tech) => (
-                <div key={tech.nombre} className="stack-chip">
-                  <img src={tech.logo} alt={`Logo de ${tech.nombre}`} loading="lazy" />
-                  <span>{tech.nombre}</span>
-                </div>
-              ))}
-            </div>
-
             <div className="hero-cta">
-              <a href="#proyectos" className="btn btn-primary">
-                Ver Mi Trabajo
+              <a href="#projects" className="btn btn-primary">
+                See My Work
               </a>
               <a href="#about" className="btn btn-secondary">
-                Más sobre mí
+                About Me
               </a>
             </div>
 
@@ -172,7 +227,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="LinkedIn"
-                className="social-link-badge linkedin"
+                className="social-link-clean social-link-linkedin"
               >
                 <i className="fab fa-linkedin-in social-link-icon" aria-hidden="true"></i>
                 <span>LinkedIn</span>
@@ -182,15 +237,24 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 title="GitHub"
-                className="social-link-badge github"
+                className="social-link-clean social-link-github"
               >
                 <i className="fab fa-github social-link-icon" aria-hidden="true"></i>
                 <span>GitHub</span>
               </a>
-              <a href="mailto:facuiria03@gmail.com" title="Email" className="social-link-badge email">
+              <a
+                href="mailto:facuiria03@gmail.com"
+                title="Email"
+                className="social-link-clean social-link-email"
+              >
                 <i className="fas fa-envelope social-link-icon" aria-hidden="true"></i>
                 <span>Email</span>
               </a>
+            </div>
+
+            <div className="hero-availability">
+              <span className="availability-dot" aria-hidden="true"></span>
+              <p>Open to internships and junior full-stack opportunities.</p>
             </div>
           </motion.div>
 
@@ -200,28 +264,13 @@ export default function Home() {
             </div>
           </motion.div>
         </motion.div>
-
-        <motion.div className="hero-metrics" {...revealUp}>
-          <div className="metric-card">
-            <strong>2+</strong>
-            <span>Proyectos destacados</span>
-          </div>
-          <div className="metric-card">
-            <strong>2022 - Actualidad</strong>
-            <span>Ingeniería Informática (UADE)</span>
-          </div>
-          <div className="metric-card">
-            <strong>Full Stack</strong>
-            <span>Java · React · SQL</span>
-          </div>
-        </motion.div>
       </section>
 
-      <section id="proyectos" className="proyectos-section">
+      <section id="projects" className="proyectos-section">
         <div className="container">
-          <motion.h2 {...revealUp}>Proyectos</motion.h2>
+          <motion.h2 {...revealUp}>Projects</motion.h2>
           <motion.p className="intro-text" {...revealUp}>
-            Algunos de mis proyectos desarrollados
+            A selection of projects I have built
           </motion.p>
 
           <div className="proyectos-grid">
@@ -252,8 +301,14 @@ export default function Home() {
                     ))}
                   </div>
 
+                  <ul className="project-impact-list">
+                    {proyecto.impacto.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+
                   <a href={proyecto.repositorio} target="_blank" rel="noopener noreferrer" className="btn-repositorio">
-                    <i className="fab fa-github"></i> Ver proyecto
+                    <i className="fab fa-github"></i> View Project
                   </a>
                 </div>
               </motion.div>
@@ -264,39 +319,39 @@ export default function Home() {
 
       <section id="skills" className="skills-section">
         <div className="container">
-          <motion.h2 {...revealUp}>Habilidades</motion.h2>
+          <motion.h2 {...revealUp}>Skills</motion.h2>
           <motion.p className="intro-text" {...revealUp}>
-            Tecnologías y herramientas que utilizo
+            Technologies and tools I work with
           </motion.p>
 
-          <div className="skills-badges-container">
-            {skills.map((category, catIndex) => (
-              <motion.div
-                key={catIndex}
-                className="skill-category"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, delay: catIndex * 0.08 }}
-              >
-                <h3 className="category-title">{category.categoria}</h3>
-                <div className="skills-badges">
-                  {category.items.map((skill, index) => (
-                    <div key={index} className="skill-badge">
-                      <img src={skill.logo} alt={`Logo de ${skill.nombre}`} className="skill-logo" loading="lazy" />
-                      <span>{skill.nombre}</span>
-                    </div>
-                  ))}
+          <motion.div
+            className="skills-marquee"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+          >
+            {skillRows.map((row, rowIndex) => (
+              <div key={`row-${rowIndex}`} className="skills-row">
+                <div className="skills-row-track">
+                  <div className={`skills-track ${rowIndex % 2 === 0 ? 'left' : 'right'}`}>
+                    {[...row, ...row].map((skill, index) => (
+                      <div key={`${skill.nombre}-${rowIndex}-${index}`} className="skill-pill">
+                        <img src={skill.logo} alt={`Logo de ${skill.nombre}`} className="skill-logo" loading="lazy" />
+                        <span>{skill.nombre}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <section id="about" className="about-section">
         <div className="container">
-          <motion.h2 {...revealUp}>Sobre Mí</motion.h2>
+          <motion.h2 {...revealUp}>About Me</motion.h2>
 
           <div className="about-content">
             <motion.div className="about-image" {...revealUp}>
@@ -306,51 +361,66 @@ export default function Home() {
             </motion.div>
 
             <motion.div className="about-text" {...revealUp}>
-              <h3>Mi Historia</h3>
+              <h3>My Story</h3>
               <p>
-                Mi nombre es Facundo Iriarte. Actualmente estoy cursando Ingeniería Informática en la
-                Universidad Argentina de la Empresa (UADE) 2022 - actualidad.
+                My name is Facundo Iriarte. I am currently pursuing a Computer Engineering degree at
+                Universidad Argentina de la Empresa (UADE), from 2022 to present.
               </p>
 
               <p>
-                Mi experiencia incluye desarrollo fullstack con Java Spring Boot, React, MySQL y REST
-                APIs. He trabajado en proyectos como Felsani Motors (marketplace de vehículos) y DryMat
-                (e-commerce), aplicando buenas prácticas de programación y enfoque en escalabilidad.
+                My experience includes full-stack development with Java Spring Boot, React, MySQL, and
+                REST APIs. I have worked on projects such as Felsani Motors (vehicle marketplace) and
+                DryMat (e-commerce), applying software best practices with a strong focus on scalability.
               </p>
 
-              <h3>Mi Enfoque</h3>
+              <h3>My Approach</h3>
               <p>
-                Disfruto trabajar en equipo y aportar a la resolución de problemas para alcanzar objetivos
-                comunes de manera eficiente. Mi objetivo es seguir creciendo como desarrollador y
-                contribuir a proyectos que generen un impacto real.
+                I enjoy teamwork and contributing to problem-solving in order to reach shared goals
+                efficiently. My objective is to keep growing as a developer and contribute to projects
+                that create real impact.
               </p>
 
-              <h3>Idiomas</h3>
+              <h3>Languages</h3>
               <p>
-                <strong>Español:</strong> Nativo | <strong>Inglés:</strong> Avanzado | <strong>Portugués:</strong>{' '}
-                Básico
+                <strong>Spanish:</strong> Native | <strong>English:</strong> Advanced |{' '}
+                <strong>Portuguese:</strong> Basic
               </p>
-
-              <div className="about-cta">
-                <p>
-                  <strong>¿Quieres trabajar juntos o tienes una propuesta?</strong>
-                </p>
-                <div className="cta-buttons">
-                  <a
-                    href="https://www.linkedin.com/in/facundo-iriarte-54259b183"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-primary"
-                  >
-                    Conectar en LinkedIn
-                  </a>
-                  <a href="mailto:facuiria03@gmail.com" className="btn btn-secondary">
-                    Envíame un Email
-                  </a>
-                </div>
-              </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      <section id="contact" className="contact-section">
+        <div className="container">
+          <motion.div className="contact-panel" {...revealUp}>
+            <h2>Let&apos;s Build Something Great</h2>
+            <p>
+              If you are looking for a developer who can contribute with ownership, clean code, and
+              product mindset, I&apos;d be glad to connect.
+            </p>
+
+            <div className="contact-actions">
+              <a href="mailto:facuiria03@gmail.com" className="btn btn-primary">
+                Send Email
+              </a>
+              <a
+                href="https://www.linkedin.com/in/facundo-iriarte-54259b183"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+              >
+                Message on LinkedIn
+              </a>
+              <a
+                href="https://github.com/FacuIria"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-secondary"
+              >
+                Explore GitHub
+              </a>
+            </div>
+          </motion.div>
         </div>
       </section>
     </main>
