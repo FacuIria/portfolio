@@ -8,7 +8,7 @@ export default function Proyectos() {
       descripcion: 'Plataforma de compras online con carrito, pago y admin panel',
       tecnologias: ['React', 'Node.js', 'MongoDB', 'Stripe'],
       tipo: 'FULL STACK',
-      imagen: '🛍️',
+      imagen: 'EC',
       repositorio: '#'
     },
     {
@@ -17,7 +17,7 @@ export default function Proyectos() {
       descripcion: 'Aplicación para gestionar tareas con autenticación de usuarios',
       tecnologias: ['React', 'Firebase', 'CSS3'],
       tipo: 'FRONTEND',
-      imagen: '✅',
+      imagen: 'TM',
       repositorio: '#'
     },
     {
@@ -26,7 +26,7 @@ export default function Proyectos() {
       descripcion: 'App de clima en tiempo real consumiendo datos de API externa',
       tecnologias: ['React', 'API REST', 'Axios'],
       tipo: 'FRONTEND',
-      imagen: '🌤️',
+      imagen: 'WA',
       repositorio: '#'
     },
     {
@@ -35,7 +35,7 @@ export default function Proyectos() {
       descripcion: 'Red social con sistema de posts, comentarios y likes',
       tecnologias: ['React', 'Node.js', 'PostgreSQL'],
       tipo: 'FULL STACK',
-      imagen: '👥',
+      imagen: 'SN',
       repositorio: '#'
     }
   ]

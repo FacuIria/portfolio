@@ -1,9 +1,36 @@
-import { motion } from 'framer-motion'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import '../styles/Home.css'
 
 export default function Home() {
+  const [activeRole, setActiveRole] = useState(0)
+
   const heroPhoto = '/images/facundo-playa.jpg'
   const aboutPhoto = '/images/facundo-traje.jpg'
+
+  const dynamicRoles = [
+    'Desarrollador Full Stack',
+    'Java + Spring Boot',
+    'React + Vite',
+    'Construyendo productos reales',
+  ]
+
+  const stackPreview = [
+    { nombre: 'Java', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+    { nombre: 'Spring Boot', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg' },
+    { nombre: 'React', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    { nombre: 'MySQL', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+    { nombre: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+    { nombre: 'Git', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+  ]
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setActiveRole((prevRole) => (prevRole + 1) % dynamicRoles.length)
+    }, 2100)
+
+    return () => window.clearInterval(intervalId)
+  }, [dynamicRoles.length])
 
   const proyectos = [
     {
@@ -13,7 +40,8 @@ export default function Home() {
         'Marketplace de vehículos desarrollado como aplicación web full-stack utilizando Java, Spring Boot y MySQL. Permite filtrar vehículos, ver detalles y gestionar un carrito de compras con panel administrativo.',
       tecnologias: ['Java', 'Spring Boot', 'MySQL', 'JPA/Hibernate'],
       tipo: 'FULL STACK',
-      imagen: '🚗',
+      icono: 'fa-car-side',
+      codigo: 'FM',
       repositorio: 'https://github.com/FacuIria',
     },
     {
@@ -23,7 +51,8 @@ export default function Home() {
         'Aplicación web de comercio electrónico desarrollada con React y Vite. Interfaz moderna y responsiva con gestión de productos y carrito de compras optimizado para todos los dispositivos.',
       tecnologias: ['React', 'Vite', 'JavaScript', 'CSS3'],
       tipo: 'FRONTEND',
-      imagen: '🛒',
+      icono: 'fa-store',
+      codigo: 'DM',
       repositorio: 'https://github.com/FacuIria',
     },
   ]
@@ -98,12 +127,35 @@ export default function Home() {
             <h1 className="hero-title">
               Soy <span>Facundo Iriarte</span>
             </h1>
-            <p className="hero-subtitle">Desarrollador Full Stack</p>
+            <div className="hero-role-switcher" aria-live="polite">
+              <span className="hero-role-label">Me defino como</span>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={dynamicRoles[activeRole]}
+                  className="hero-role-dynamic"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12 }}
+                  transition={{ duration: 0.35, ease: 'easeOut' }}
+                >
+                  {dynamicRoles[activeRole]}
+                </motion.span>
+              </AnimatePresence>
+            </div>
             <p className="hero-description">
               Estudiante de Ingeniería Informática en UADE con foco en construir productos sólidos,
               escalables y bien diseñados. Me gusta combinar lógica de negocio, buena experiencia de
               usuario y trabajo colaborativo para resolver problemas reales.
             </p>
+
+            <div className="hero-stack-strip" aria-label="Tecnologías principales">
+              {stackPreview.map((tech) => (
+                <div key={tech.nombre} className="stack-chip">
+                  <img src={tech.logo} alt={`Logo de ${tech.nombre}`} loading="lazy" />
+                  <span>{tech.nombre}</span>
+                </div>
+              ))}
+            </div>
 
             <div className="hero-cta">
               <a href="#proyectos" className="btn btn-primary">
@@ -183,7 +235,10 @@ export default function Home() {
                 transition={{ duration: 0.55, delay: index * 0.12 }}
               >
                 <div className="proyecto-tipo">{proyecto.tipo}</div>
-                <div className="proyecto-imagen">{proyecto.imagen}</div>
+                <div className={`proyecto-imagen proyecto-imagen-${proyecto.id}`}>
+                  <i className={`fas ${proyecto.icono}`} aria-hidden="true"></i>
+                  <span>{proyecto.codigo}</span>
+                </div>
 
                 <div className="proyecto-content">
                   <h3>{proyecto.titulo}</h3>
