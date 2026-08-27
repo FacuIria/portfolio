@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import './styles/App.css'
 
 function App() {
+  const [language, setLanguage] = useState(() => localStorage.getItem('language') || 'es')
   const [theme, setTheme] = useState(() => {
     if (typeof window === 'undefined') {
       return 'dark'
@@ -23,15 +24,20 @@ function App() {
     localStorage.setItem('theme', theme)
   }, [theme])
 
+  useEffect(() => {
+    document.documentElement.lang = language
+    localStorage.setItem('language', language)
+  }, [language])
+
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'))
   }
 
   return (
     <Router>
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar theme={theme} toggleTheme={toggleTheme} language={language} setLanguage={setLanguage} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home language={language} />} />
       </Routes>
     </Router>
   )

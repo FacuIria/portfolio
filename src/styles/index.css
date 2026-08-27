@@ -4,23 +4,43 @@
   box-sizing: border-box;
 }
 
+/* Lightweight local icon set: avoids a render-blocking icon font. */
+.fas,
+.fab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.fa-code::before { content: '{ }'; font-size: .72em; }
+.fa-sun::before { content: '☀'; }
+.fa-moon::before { content: '◐'; }
+.fa-linkedin-in::before { content: 'in'; font-size: .72em; }
+.fa-github::before { content: 'GH'; font-size: .64em; }
+.fa-envelope::before { content: '@'; }
+.fa-car-side::before { content: '◆'; }
+.fa-store::before { content: '◇'; }
+.fa-chevron-right::before { content: '→'; }
+.fa-display::before { content: '▣'; }
+
 :root {
   color-scheme: dark;
-  --bg-primary: #06111a;
-  --bg-secondary: #102236;
-  --bg-accent: #1b3f52;
-  --text-primary: #dbe8f3;
-  --text-secondary: #9bb1c4;
-  --brand-cyan: #4dd0e1;
-  --brand-orange: #ff9f43;
+  --bg-primary: #0b0f14;
+  --bg-secondary: #10161d;
+  --bg-accent: #18212b;
+  --text-primary: #f2f5f7;
+  --text-secondary: #9aa7b4;
+  --brand-cyan: #72a8d4;
+  --brand-orange: #7fc7ad;
 }
 
 body {
-  font-family: 'Manrope', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-  background:
-    radial-gradient(circle at 8% -8%, rgba(77, 208, 225, 0.22), transparent 34%),
-    radial-gradient(circle at 95% -15%, rgba(255, 159, 67, 0.2), transparent 38%),
-    linear-gradient(160deg, var(--bg-primary) 0%, var(--bg-secondary) 55%, var(--bg-primary) 100%);
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.65;
   min-height: 100vh;
@@ -29,11 +49,8 @@ body {
 
 body[data-theme='light'] {
   color-scheme: light;
-  background:
-    radial-gradient(circle at 10% -10%, rgba(56, 189, 248, 0.2), transparent 38%),
-    radial-gradient(circle at 90% -20%, rgba(251, 146, 60, 0.16), transparent 42%),
-    linear-gradient(170deg, #f8fbfd 0%, #ecf3f8 60%, #f6fafc 100%);
-  color: #334155;
+  background: #f5f3ee;
+  color: #29323b;
 }
 
 html {
@@ -53,7 +70,7 @@ html {
 }
 
 h2 {
-  font-family: 'Sora', 'Manrope', sans-serif;
+  font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: 1rem;
   text-align: center;
@@ -72,7 +89,7 @@ h2::after {
   transform: translateX(-50%);
   width: 90px;
   height: 3px;
-  background: linear-gradient(90deg, #22d3ee 0%, #fb923c 100%);
+  background: linear-gradient(90deg, #4f8fc9 0%, #3fb39b 100%);
   border-radius: 2px;
 }
 
@@ -97,7 +114,7 @@ h2::after {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #0891b2 0%, #f97316 100%);
+  background: linear-gradient(135deg, #2563a8 0%, #277c70 100%);
   color: #f8fafc;
 }
 

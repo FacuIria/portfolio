@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import '../styles/Navbar.css'
 
-export default function Navbar({ theme, toggleTheme }) {
+export default function Navbar({ theme, toggleTheme, language, setLanguage }) {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleMenu = () => setIsOpen(!isOpen)
@@ -10,6 +10,11 @@ export default function Navbar({ theme, toggleTheme }) {
   const handleClick = () => {
     setIsOpen(false)
   }
+
+  const sections = ['projects', 'skills', 'experience', 'about', 'contact']
+  const labels = language === 'es'
+    ? ['Proyectos', 'Tecnologías', 'Experiencia', 'Sobre mí', 'Contacto']
+    : ['Projects', 'Skills', 'Experience', 'About', 'Contact']
 
   return (
     <nav className="navbar">
@@ -19,26 +24,27 @@ export default function Navbar({ theme, toggleTheme }) {
         </Link>
 
         <div className={`nav-menu ${isOpen ? 'active' : ''}`}>
-          <a href="#home" className="nav-link" onClick={handleClick}>Home</a>
-          <a href="#projects" className="nav-link" onClick={handleClick}>Projects</a>
-          <a href="#skills" className="nav-link" onClick={handleClick}>Skills</a>
-          <a href="#experience" className="nav-link" onClick={handleClick}>Experience</a>
-          <a href="#engineering" className="nav-link" onClick={handleClick}>Quality</a>
-          <a href="#focus" className="nav-link" onClick={handleClick}>Focus</a>
-          <a href="#about" className="nav-link" onClick={handleClick}>About</a>
-          <a href="#contact" className="nav-link" onClick={handleClick}>Contact</a>
+          {sections.map((section, index) => (
+            <a key={section} href={`#${section}`} className="nav-link" onClick={handleClick}>{labels[index]}</a>
+          ))}
 
-          <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label="Switch theme">
+          <div className="language-switch" aria-label={language === 'es' ? 'Cambiar idioma' : 'Change language'}>
+            <button type="button" className={language === 'es' ? 'active' : ''} onClick={() => setLanguage('es')} aria-pressed={language === 'es'}>ES</button>
+            <span aria-hidden="true">/</span>
+            <button type="button" className={language === 'en' ? 'active' : ''} onClick={() => setLanguage('en')} aria-pressed={language === 'en'}>EN</button>
+          </div>
+
+          <button type="button" className="theme-toggle" onClick={toggleTheme} aria-label={language === 'es' ? 'Cambiar tema' : 'Switch theme'}>
             <i className={theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon'}></i>
-            <span>{theme === 'dark' ? 'Light' : 'Dark'}</span>
+            <span>{theme === 'dark' ? (language === 'es' ? 'Claro' : 'Light') : (language === 'es' ? 'Oscuro' : 'Dark')}</span>
           </button>
         </div>
 
-        <div className={`hamburger ${isOpen ? 'active' : ''}`} onClick={toggleMenu}>
+        <button type="button" className={`hamburger ${isOpen ? 'active' : ''}`} onClick={toggleMenu} aria-label={language === 'es' ? 'Abrir menú' : 'Open menu'} aria-expanded={isOpen}>
           <span></span>
           <span></span>
           <span></span>
-        </div>
+        </button>
       </div>
     </nav>
   )
