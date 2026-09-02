@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import '../styles/Home.css'
 
@@ -6,6 +6,29 @@ export default function Home({ language = 'es' }) {
   const [typedName, setTypedName] = useState('')
   const [typedRole, setTypedRole] = useState('')
   const [activeProjectFilter, setActiveProjectFilter] = useState('All')
+  const portraitSceneRef = useRef(null)
+
+  const handlePortraitMove = (event) => {
+    const scene = portraitSceneRef.current
+    if (!scene) return
+
+    const bounds = scene.getBoundingClientRect()
+    const x = (event.clientX - bounds.left) / bounds.width - 0.5
+    const y = (event.clientY - bounds.top) / bounds.height - 0.5
+    scene.style.setProperty('--rotate-y', `${x * 13}deg`)
+    scene.style.setProperty('--rotate-x', `${y * -11}deg`)
+    scene.style.setProperty('--light-x', `${(x + 0.5) * 100}%`)
+    scene.style.setProperty('--light-y', `${(y + 0.5) * 100}%`)
+  }
+
+  const resetPortrait = () => {
+    const scene = portraitSceneRef.current
+    if (!scene) return
+    scene.style.setProperty('--rotate-y', '0deg')
+    scene.style.setProperty('--rotate-x', '0deg')
+    scene.style.setProperty('--light-x', '50%')
+    scene.style.setProperty('--light-y', '35%')
+  }
 
   const heroPhoto = '/images/facundo-playa.jpg'
   const aboutPhoto = '/images/facundo-traje.jpg'
@@ -315,10 +338,46 @@ export default function Home({ language = 'es' }) {
             </div>
           </motion.div>
 
-          <motion.div className="hero-image" initial={false}>
-            <div className="hero-photo-frame">
-              <img src={heroPhoto} alt={isEs ? 'Retrato de Facundo Iriarte' : 'Portrait of Facundo Iriarte'} className="hero-photo" width="840" height="1120" fetchPriority="high" />
+          <motion.div
+            className="hero-visual"
+            initial={false}
+            ref={portraitSceneRef}
+            onPointerMove={handlePortraitMove}
+            onPointerLeave={resetPortrait}
+            aria-label={isEs ? 'Escena 3D interactiva que representa desarrollo de software' : 'Interactive 3D software development scene'}
+          >
+            <div className="scene-halo" aria-hidden="true"></div>
+            <div className="scene-orbit scene-orbit-a" aria-hidden="true"><span></span></div>
+            <div className="scene-orbit scene-orbit-b" aria-hidden="true"><span></span></div>
+            <div className="scene-cube scene-cube-a" aria-hidden="true"><i></i></div>
+            <div className="scene-cube scene-cube-b" aria-hidden="true"><i></i></div>
+
+            <div className="hero-portrait-object">
+              <img src={heroPhoto} alt={isEs ? 'Retrato de Facundo Iriarte' : 'Portrait of Facundo Iriarte'} width="840" height="1120" fetchPriority="high" />
+              <div className="portrait-reflection" aria-hidden="true"></div>
+              <div className="portrait-index" aria-hidden="true"><span>01</span><b>FACUNDO<br />IRIARTE</b></div>
             </div>
+
+            <div className="code-object">
+              <div className="code-object-bar">
+                <div className="window-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+                <span>facundo.dev</span>
+                <span className="code-status"><i></i> online</span>
+              </div>
+              <div className="code-object-body" aria-hidden="true">
+                <span><b>01</b><em>const</em> developer = {'{'}</span>
+                <span><b>02</b>&nbsp;&nbsp;name: <strong>'Facundo'</strong>,</span>
+                <span><b>03</b>&nbsp;&nbsp;status: <strong>'building'</strong></span>
+                <span><b>04</b>{'}'}</span>
+              </div>
+              <div className="code-object-footer">
+                <span>FULL-STACK</span>
+                <span>BUENOS AIRES · AR</span>
+              </div>
+            </div>
+
+            <div className="scene-label scene-label-api" aria-hidden="true"><span>02</span> API DESIGN</div>
+            <div className="scene-label scene-label-ui" aria-hidden="true"><span>03</span> PRODUCT UI</div>
           </motion.div>
         </motion.div>
       </section>
